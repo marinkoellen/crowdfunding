@@ -16,7 +16,7 @@ export default function App(){
             <HomePage />
           </Route>
 
-          <Route path="/project">
+          <Route path="/projects/:id">
             <ProjectPage />
           </Route>
 
