@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Loader from "../components/Loader/Loader";
+import {useHistory, useParams} from "react-router-dom";
 
-function HomePage() {
+function CategoryPage() {
   //variables
+  const {project_id} = useParams();
+
   const [projectList, setProjectList] = useState([]);
   const [filter, setFilter] = useState("");
   const [isLoading, setisLoading] = useState(true);
@@ -16,7 +19,8 @@ function HomePage() {
         return results.json();
       })
       .then((data) => {
-        setProjectList(data);
+        let output = data.filter((obj) => obj.proj_cat == project_id);
+        setProjectList(output);
         setisLoading(false);
       });
   }, []);
@@ -37,9 +41,10 @@ function HomePage() {
       <div>
         {!isLoading && (
           <div>
+            <h1>{project_id} Projects</h1>
             <input
               type="text"
-              placeholder="Search by Title, Project Category or Project Owner"
+              placeholder="Search by Title or Project Owner"
               value={filter}
               onChange={handleFilter}
             ></input>{" "}
@@ -49,9 +54,6 @@ function HomePage() {
                   filter != null &&
                   filter !== "" &&
                   !projectData.title
-                    .toLowerCase()
-                    .includes(filter.toLowerCase()) &&
-                  !projectData.proj_cat
                     .toLowerCase()
                     .includes(filter.toLowerCase()) &&
                   !projectData.owner
@@ -71,4 +73,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default CategoryPage;

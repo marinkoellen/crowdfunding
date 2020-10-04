@@ -1,7 +1,19 @@
-import React from "react";
-import { slide as Menu } from "react-burger-menu";
+import React, {useEffect, useState} from "react";
+import {slide as Menu} from "react-burger-menu";
 
 function SideBar(props) {
+  const [categorylist, setCategorylist] = useState([]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}categories/`)
+      .then((results) => {
+        return results.json();
+      })
+      .then((data) => {
+        setCategorylist(data);
+      });
+  }, []);
+
   return (
     // Pass on our props
     <Menu {...props}>
@@ -9,17 +21,11 @@ function SideBar(props) {
         Home
       </a>
 
-      <a className="menu-item" href="/Restaurant">
-        Restaurant
-      </a>
-
-      <a className="menu-item" href="/">
-        Food Trucks
-      </a>
-
-      <a className="menu-item" href="/">
-        Food Product
-      </a>
+      {categorylist.map((cat) => (
+        <a key={cat.name} className="menu-item" href={"/all/" + cat.name}>
+          {cat.name + "s"}
+        </a>
+      ))}
     </Menu>
   );
 }

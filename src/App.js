@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import "./App.css";
 import Nav from "./components/Nav/Nav";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
@@ -7,13 +7,17 @@ import HomePage from "./pages/HomePage";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectEditPage from "./pages/EditProjectPage";
 import TestPage from "./pages/TestPage";
+import ProfileEditPage from "./pages/EditProfilePage";
 
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import PledgePage from "./pages/PledgePage";
+import PublicProfilePage from "./pages/PublicProfilePage";
 
 import CreateProjectPage from "./pages/CreateProjectPage";
 import CreateUserPage from "./pages/CreateUserPage";
+import CategoryPage from "./pages/CategoryPage";
+
 import SideBar from "./components/SideBar/SideBar.jsx";
 import "./components/SideBar/SideBar.css";
 
@@ -30,6 +34,10 @@ export default function App() {
           <Switch>
             <Route exact path="/">
               <HomePage />
+            </Route>
+
+            <Route exact path="/all/:project_id/">
+              <CategoryPage />
             </Route>
 
             <Route exact path="/profile/">
@@ -49,7 +57,14 @@ export default function App() {
               <PledgePage />
             </Route>
 
-            {/* <PrivateRoute path="/pledge/:id" comp={PledgePage}></PrivateRoute> */}
+            <Route exact path="/userprofile/:id">
+              <PublicProfilePage />
+            </Route>
+
+            <PrivateRoute
+              path="/edit-userprofile/"
+              comp={ProfileEditPage}
+            ></PrivateRoute>
 
             <PrivateRoute path="/userprofile" comp={ProfilePage}></PrivateRoute>
 

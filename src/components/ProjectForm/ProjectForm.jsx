@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useHistory} from "react-router-dom";
 import "./ProjectForm.css";
 import "../../components/ProjectCard/ProjectCard.css";
 
@@ -15,7 +15,6 @@ function ProjectForm() {
         setCategorylist(data);
       });
   }, []);
-  console.log(categorylist);
 
   //variables
   const [credentials, setCredentials] = useState({
@@ -25,7 +24,7 @@ function ProjectForm() {
     dream_goal: "",
     campaign_end_date: "",
     image: "",
-    is_open: "",
+    is_open: true,
     city: "",
     location: "",
     proj_cat: "",
@@ -33,7 +32,7 @@ function ProjectForm() {
 
   //methods
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const {id, value} = e.target;
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
       [id]: value,
@@ -54,6 +53,7 @@ function ProjectForm() {
       },
       body: JSON.stringify(credentials),
     });
+    console.log(credentials);
     return response.json();
   };
 
