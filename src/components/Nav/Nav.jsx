@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import LogoutForm from "../LogoutForm/LogoutForm.jsx";
+import logo from '../../icons/Nibble_Solid_Dark_Grey.png';
 
 function Nav() {
   const [loggedin, setLoggedIn] = useState(false);
@@ -9,6 +10,7 @@ function Nav() {
 
   const isAuthenticated = () => {
     let token = window.localStorage.getItem("token");
+
 
     if (token != null) {
       return true;
@@ -22,36 +24,41 @@ function Nav() {
     setLoading(false);
   }, []);
 
+
+  const handleSubmit = (e) => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   if (loading === true) {
     return (
       <nav>
-        <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
-        <Link to="/profile/">Create User Account</Link>
       </nav>
     );
   }
 
+
   if (loggedin) {
-    let username = window.localStorage.getItem("username");
     return (
-      <div>
-        <nav>
-          <Link to="/">Home </Link>
-          <Link to="/project-create">Create Project</Link>
-          <Link to="/userprofile">{username}:Profile</Link>
-        </nav>
-        <LogoutForm />
+      <div className="navbarcontainer">
+        <Link onClick={handleSubmit} id="logintop" to="/">LOGOUT</Link>
+
+        <div id="navbar">
+          <img id="nibblelogo" src={logo} alt="Logo" />
+        </div>
       </div>
-    );
+    )
   } else {
     return (
-      <nav>
-        <Link to="/"> Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/profile/">Create User Account</Link>
-      </nav>
-    );
+      <div className="navbarcontainer">
+        <Link id="logintop" to="/login">LOGIN</Link>
+        <div id="navbar">
+          <img id="nibblelogo" src={logo} alt="Logo" />
+        </div>
+      </div>
+    )
   }
 }
 

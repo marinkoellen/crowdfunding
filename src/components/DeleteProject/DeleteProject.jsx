@@ -17,21 +17,22 @@ function DeleteProject(props) {
 
   const handleSubmit = (e) => {
     let token = localStorage.getItem("token");
-    console.log(project);
+    console.log("here", project.projectid)
     fetch(`${process.env.REACT_APP_API_URL}projects/${project.projectid}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
-    });
-    history.push("/");
-    window.location.reload();
+
+    }
+    );
+
   };
 
   return (
     <div>
-      <button onClick={handleSubmit}>Delete your project</button>
+      <button type="submit" onClick={handleSubmit}>Delete your project</button>
     </div>
   );
 }

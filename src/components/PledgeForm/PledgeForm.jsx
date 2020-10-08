@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import "./PledgeForm.css";
 
 function PledgeForm(props) {
-  const { id } = props;
+  const { id, title } = props;
 
   //variables
   const [credentials, setCredentials] = useState({
@@ -11,6 +12,7 @@ function PledgeForm(props) {
     anonymous: "",
     project_id: id,
   });
+
 
   //methods
   const handleChange = (e) => {
@@ -44,7 +46,6 @@ function PledgeForm(props) {
       console.log(credentials);
 
       postData().then((response) => {
-        console.log(response);
         history.push(`/projects/${id}`);
         window.location.reload();
       });
@@ -52,30 +53,32 @@ function PledgeForm(props) {
   };
 
   return (
-    <div>
+    <div id="pledgeform">
+      <h2 id="headerTitle"> Pledge to {title} </h2>
       <form>
-        <div>
-          <label htmlFor="comment">comment:</label>
+        <div className="thra">
+          <label htmlFor="comment">Please leave a message with your pledge:</label>
           <input
             type="text"
             id="comment"
-            placeholder="What is the comment of your pledge?"
+            required
             onChange={handleChange}
           />
         </div>
 
-        <div>
-          <label htmlFor="amount">amount:</label>
-          <input type="number" id="amount" onChange={handleChange} />
+        <div className="thra">
+          <label htmlFor="amount">How much would you like to pledge?:</label>
+          <input type="number" id="amount" required min="0" onChange={handleChange} />
         </div>
 
         <div>
-          <label htmlFor="anonymous">Do you want to remain Anonymous:</label>
+          <label htmlFor="anonymous">Do you wish for the pledge to remain Anonymous:</label>
           <input
             type="radio"
             id="anonymous"
             name="anonymous"
             value="true"
+            required
             onChange={handleChange}
           />
           <label htmlFor="anonymous">Yes</label>
@@ -84,16 +87,17 @@ function PledgeForm(props) {
             id="anonymous"
             name="anonymous"
             value="false"
+            required
             onChange={handleChange}
           />
           <label htmlFor="false">No</label>
         </div>
-
-        <button className="button" type="submit" onClick={handleSubmit}>
-          Submit
+        <div className="buttonwrapper">
+          <button className="pledgebutton" type="submit" onClick={handleSubmit}>
+            Submit
         </button>
+        </div>
       </form>
-      {id}
     </div>
   );
 }

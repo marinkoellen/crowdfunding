@@ -1,0 +1,16 @@
+img#profilepicture{
+    border: black 1px solid;
+    border-radius: 60%;
+
+}
+
+
+
+#imagecon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-width: 130px;
+}

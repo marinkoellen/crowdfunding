@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Loader from "../components/Loader/Loader";
+import "../App.css";
 
 function HomePage() {
   //variables
@@ -18,6 +19,7 @@ function HomePage() {
       .then((data) => {
         setProjectList(data);
         setisLoading(false);
+        console.log(data)
       });
   }, []);
 
@@ -26,7 +28,7 @@ function HomePage() {
   };
 
   return (
-    <div>
+    <div id="projectlistcenter">
       <div>
         {isLoading && (
           <div>
@@ -37,12 +39,16 @@ function HomePage() {
       <div>
         {!isLoading && (
           <div>
-            <input
-              type="text"
-              placeholder="Search by Title, Project Category or Project Owner"
-              value={filter}
-              onChange={handleFilter}
-            ></input>{" "}
+            <h3 id="headerTitle">Nibble is a crowdfunding site that is created specifically with food in mind. Browse all our {projectList.length} current Nibble projects</h3>
+
+            <div id="search-bar__wrapper">
+              <input id="search-bar"
+                type="text"
+                placeholder="Search ... for Project Title, Category, Location or Owner"
+                value={filter}
+                onChange={handleFilter}
+              ></input>{" "}
+            </div>
             <div id="project-list">
               {projectList.reduce((total, projectData, key) => {
                 if (
@@ -55,6 +61,9 @@ function HomePage() {
                     .toLowerCase()
                     .includes(filter.toLowerCase()) &&
                   !projectData.owner
+                    .toLowerCase()
+                    .includes(filter.toLowerCase()) &&
+                  !projectData.city
                     .toLowerCase()
                     .includes(filter.toLowerCase())
                 )

@@ -1,16 +1,16 @@
 import React from "react";
 
 const ProgressBar = (props) => {
-  const {completed } = props;
+  const { completed } = props;
   var backCol;
 
-  if (completed > 100){
-    backCol = "#d1dcff"
+  if (completed > 100) {
+    backCol = "#2e2c38"
   } else {
-    backCol = "#ffd1dc"
+    backCol = "#2e2c38"
   }
 
-  
+
 
   const containerStyles = {
     height: 20,
@@ -36,7 +36,7 @@ const ProgressBar = (props) => {
   }
 
   return (
-    <div style={ containerStyles}>
+    <div style={containerStyles}>
       <div style={fillerStyles}>
         <span style={labelStyles}>{`${completed}%`}</span>
       </div>

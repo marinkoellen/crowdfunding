@@ -1,14 +1,26 @@
 .App {
   text-align: center;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+div#projectlistcenter {
+  display: grid;
+  justify-content: center;
 }
 
 #project-list {
-  width: 95%;
+  width: 90vw;
   display: grid;
   grid-template-columns: 32% 32% 32%;
   column-gap: 10px;
   row-gap: 10px;
   margin-left: 20px;
+  margin-right: 20px;
+  
+
+
 }
 
 html {
@@ -47,4 +59,39 @@ html {
   #project-list {
     grid-template-columns: 19% 19% 19% 19% 19%;
   }
+}
+
+
+#search-bar__wrapper {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+
+
+#search-bar[type=text] {
+  width: 10%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: white;
+  background-image: url('https://icons-for-free.com/iconfiles/png/512/explore+find+magnifier+search+icon-1320185008030646474.png');
+  background-position: left center;
+  margin: 10px;
+  background-size: contain; 
+
+  background-repeat: no-repeat;
+  padding: 8px 15px 8px 30px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+#search-bar[type=text]:focus {
+  width: 40%;
+  font-size: 12px;
+  background-image: none; 
 }

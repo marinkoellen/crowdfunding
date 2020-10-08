@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Route, Redirect, useHistory } from "react-router-dom";
+import LoginForm from "../../components/LoginForm/LoginForm";
 
 function PrivateRoute({ comp: Comp, ...props }) {
-  const history = useHistory();
   const [loggedin, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -27,8 +26,11 @@ function PrivateRoute({ comp: Comp, ...props }) {
   if (loggedin) {
     return <Comp {...props} />;
   } else {
-    history.push("/login");
-    return null;
+    return <div>
+      <h4 id="headerTitle">You have tried to access a page that you do not have permission to view without logging in! <br></br><br></br> Please log in and try again</h4>
+      <LoginForm />{" "}
+      <br></br><br></br>
+    </div>
   }
 }
 

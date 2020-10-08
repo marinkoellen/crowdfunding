@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ProfileEditForm from "../components/ProfileEditForm/ProfileEditForm";
 import Loader from "../components/Loader/Loader";
 
@@ -8,7 +8,6 @@ function EditProfilePage() {
   const [ProfileData, setProfileData] = useState({});
   const [PublicProfileData, setPublicProfileData] = useState({});
   const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}users/${username}/`, {

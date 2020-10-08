@@ -1,0 +1,31 @@
+#nibblelogo{
+    padding-top: 20px;
+    width: 28%;
+
+}
+
+
+#navbar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#logintop{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.navbarcontainer{
+    padding: 20px;
+}
+
+
+a#logintop{text-decoration: none; color:#2e2c38;}
+a#logintop:visited { text-decoration: none; color:#2e2c38; }
+a#logintop:focus { text-decoration: none; color:#2e2c38; }
+a#logintop:hover, #project-list a:active { text-decoration: none; opacity: 0.7; }

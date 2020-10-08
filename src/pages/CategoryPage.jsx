@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 import Loader from "../components/Loader/Loader";
-import {useHistory, useParams} from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 function CategoryPage() {
   //variables
-  const {project_id} = useParams();
+  const { project_id } = useParams();
 
   const [projectList, setProjectList] = useState([]);
   const [filter, setFilter] = useState("");
@@ -30,7 +30,7 @@ function CategoryPage() {
   };
 
   return (
-    <div>
+    <div id="projectlistcenter">
       <div>
         {isLoading && (
           <div>
@@ -41,13 +41,16 @@ function CategoryPage() {
       <div>
         {!isLoading && (
           <div>
-            <h1>{project_id} Projects</h1>
-            <input
-              type="text"
-              placeholder="Search by Title or Project Owner"
-              value={filter}
-              onChange={handleFilter}
-            ></input>{" "}
+            <h3 id="headerTitle">Nibble is a crowdfunding site that is created specifically with food in mind. <br></br> Browse our {projectList.length} current Nibble projects related to {project_id}s!</h3>
+
+            <div id="search-bar__wrapper">
+              <input id="search-bar"
+                type="text"
+                placeholder="Search ... for Project Title, Category, Location or Owner"
+                value={filter}
+                onChange={handleFilter}
+              ></input>{" "}
+            </div>
             <div id="project-list">
               {projectList.reduce((total, projectData, key) => {
                 if (
@@ -69,7 +72,7 @@ function CategoryPage() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }
 

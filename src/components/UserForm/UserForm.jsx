@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import "../UserForm/UserForm.css";
 
 function UserForm() {
   //variables
@@ -46,45 +47,45 @@ function UserForm() {
   };
 
   return (
-    <form>
-      <div>
+    <form id="loginform">
+      <h2 id="headerTitle">Create an Account</h2>
+
+      <div className="row">
         <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
-          placeholder="Username!"
           onChange={handleChange}
         />
       </div>
 
-      <div>
+      <div className="row">
         <label htmlFor="email">Email:</label>
         <input
           type="email"
           id="email"
-          placeholder="email?"
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div className="row">
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" onChange={handleChange} />
+        <input type="password" id="password" placeholder="At least 6 characters" onChange={handleChange} />
       </div>
 
-      <div>
-        <label htmlFor="preferred_name">Preferred Name:</label>
+      <div className="row">
+        <label htmlFor="preferred_name">Your Preferred Name:</label>
         <input
           type="text"
           id="preferred_name"
-          placeholder="What is your preferred name?"
           onChange={handleChange}
         />
       </div>
-
-      <button className="button" type="submit" onClick={handleSubmit}>
-        Create User
+      <div id="test">
+        <button id="button" className="button" type="submit" onClick={handleSubmit}>
+          Create your Nibble Account!
       </button>
-    </form>
+      </div >
+    </form >
   );
 }
 

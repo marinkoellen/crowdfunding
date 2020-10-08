@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import UserPic from "../../components/UserPic/UserPic";
+
 
 function ProjectEditForm(props) {
   const { projectData } = props;
@@ -95,122 +97,125 @@ function ProjectEditForm(props) {
   };
 
   return (
-    <form>
-      <div>
-        <label htmlFor="title">title:</label>
-        <input
-          type="text"
-          id="title"
-          value={credentials.title}
-          onChange={handleChange}
-        />
-      </div>
+    <div id="pledgeform">
+      <h2 id="headerTitle"> Edit or close your project: {credentials.title} </h2>
+      <form>
+        <div className="thra">
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            value={credentials.title}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea
-          type="textarea"
-          id="description"
-          value={credentials.description}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="thra">
+          <label htmlFor="description">Description:</label>
+          <br></br>
 
-      <div>
-        <label htmlFor="goal">Goal:</label>
-        <input
-          type="number"
-          id="goal"
-          value={credentials.goal}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="dream_goal">Dream Goal:</label>
-        <input
-          type="number"
-          id="dream_goal"
-          value={credentials.dream_goal}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="campaign_end_date">campaign end date:</label>
-        <input
-          type="date"
-          id="campaign_end_date"
-          value={credentials.campaign_end_date}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="image">image:</label>
-        <input
-          type="url"
-          id="image"
-          value={credentials.image}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="city">city:</label>
-        <input
-          type="text"
-          id="city"
-          value={credentials.city}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="location">location:</label>
-        <input
-          type="text"
-          id="location"
-          value={credentials.location}
-          onChange={handleChange}
-        />
-      </div>
+          <textarea
+            rows="5"
+            type="textarea"
+            id="description"
+            value={credentials.description}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="is_open">Please confirm project is still open:</label>
-        <input
-          type="radio"
-          id="is_open"
-          name="is_open"
-          onChange={handleChange}
-        />
-        <label htmlFor="is_open">Open</label>
+        <div className="thra">
+          <label htmlFor="campaign_end_date">Campaign End Date:</label>
+          <input
+            type="date"
+            id="campaign_end_date"
+            value={credentials.campaign_end_date}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="thra">
+          <label htmlFor="image">Image:</label>
 
-        <input
-          type="radio"
-          id="is_open"
-          name="is_open"
-          value="false"
-          onChange={handleChange}
-        />
-        <label htmlFor="false">Closed</label>
-      </div>
+          <div className="ownersection">
+            <br></br>
+            <div id="imagecon">
+              <img id="profilepicture" src={credentials.image} alt="anon pic" />
+            </div>
+            <br></br>
+          </div>
+          <input
+            type="url"
+            id="image"
+            value={credentials.image}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="thra">
+          <label htmlFor="city">City:</label>
+          <input
+            type="text"
+            id="city"
+            value={credentials.city}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="thra">
+          <label htmlFor="location">Location:</label>
+          <input
+            type="text"
+            id="location"
+            value={credentials.location}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="proj_cat">Category:</label>
-        <select
-          type="select"
-          id="proj_cat"
-          onChange={handleChange}
-          value={credentials.proj_cat}
-        >
-          {categorylist.map((cat) => (
-            <option key={cat.name} value={cat.name}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
-      </div>
+        <div className="thra">
+          <label htmlFor="is_open">Would you like to Close the Project?</label>
 
-      <button className="button" type="submit" onClick={handleSubmit}>
-        Submit
+        </div>
+
+        <div className="radiowrapper">
+          <input
+            type="radio"
+            id="is_open"
+            name="is_open"
+            onChange={handleChange}
+          />
+          <label htmlFor="is_open">Open</label>
+
+          <input
+            type="radio"
+            id="is_open"
+            name="is_open"
+            value="false"
+            onChange={handleChange}
+          />
+          <label htmlFor="false">Closed</label>
+        </div>
+
+        <div className="thra">
+          <label htmlFor="proj_cat">Category:</label>
+          <br></br>
+          <select
+            type="select"
+            id="proj_cat"
+            onChange={handleChange}
+            value={credentials.proj_cat}
+          >
+            {categorylist.map((cat) => (
+              <option key={cat.name} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="buttonwrapper">
+
+          <button className="pledgebutton" type="submit" onClick={handleSubmit}>
+            Submit
       </button>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 }
 

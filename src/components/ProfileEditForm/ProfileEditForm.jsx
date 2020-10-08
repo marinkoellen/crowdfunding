@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 
 function ProfileEditForm(props) {
   const { ProfileData, PublicProfileData } = props;
+  const [error, setError] = useState();
+
   //variables
   const [credentials, setCredentials] = useState({
     username: "",
@@ -14,6 +16,7 @@ function ProfileEditForm(props) {
       city: "",
     },
   });
+
 
   useEffect(() => {
     setCredentials({
@@ -67,88 +70,142 @@ function ProfileEditForm(props) {
         body: JSON.stringify(credentials),
       }
     );
-    console.log(response);
-    return response.json();
+
+    if (response.ok) {
+      return response.json();
+    } else {
+      response.text().then(text => {
+        throw Error(text)
+      }).catch(
+        (error) => {
+          const errorObj = JSON.parse(error.message);
+          setError(errorObj);
+        }
+      )
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    postData()
+      .then((response) => {
+        if (response != undefined) {
+          history.push("/userprofile/");
+        } else {
+          history.push("/edit-userprofile")
+        }
+      }).catch(
+        (error) => {
+          console.log("error")
+        }
+      )
 
-    console.log(credentials);
-    if (credentials.username != null) {
-      postData().then((response) => {
-        console.log(response);
-        history.push("/userprofile/");
-      });
-    }
   };
 
+
+
   return (
-    <form>
-      <div>
-        <label htmlFor="location">location:</label>
-        <input
-          type="text"
-          id="location"
-          value={credentials.userprofile.location}
-          onChange={handleChange}
-        />
-      </div>
+    <div id="pledgeform">
+      <h2 id="headerTitle"> Update your Account Details Here</h2>
 
-      <div>
-        <label htmlFor="display_picture">display picture:</label>
-        <input
-          type="url"
-          id="display_picture"
-          value={credentials.userprofile.display_picture}
-          onChange={handleChange}
-        />
-      </div>
+      <form>
+        <div className="thra">
 
-      <div>
-        <label htmlFor="city">city:</label>
-        <input
-          type="text"
-          id="city"
-          value={credentials.userprofile.city}
-          onChange={handleChange}
-        />
-      </div>
+          <label htmlFor="location">Your Current Location:</label>
+        </div>
 
-      <div>
-        <label htmlFor="username">username:</label>
-        <textarea
-          type="text"
-          id="username"
-          value={credentials.username}
-          onChange={handleChangePrivate}
-        />
-      </div>
+        <div className="thra">
+          <label htmlFor="city">City:</label>
+          <input
+            type="text"
+            id="city"
+            value={credentials.userprofile.city}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="thra">
 
-      <div>
-        <label htmlFor="email">email:</label>
-        <input
-          type="text"
-          id="email"
-          value={credentials.email}
-          onChange={handleChangePrivate}
-        />
-      </div>
+          <label htmlFor="location">State:</label>
+          <input
+            type="text"
+            id="location"
+            value={credentials.userprofile.location}
+            onChange={handleChange}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="preferred_name">preferred_name:</label>
-        <input
-          type="text"
-          id="preferred_name"
-          value={credentials.preferred_name}
-          onChange={handleChangePrivate}
-        />
-      </div>
 
-      <button className="button" type="submit" onClick={handleSubmit}>
-        Submit
+
+
+
+        <div className="thra">
+          <label htmlFor="display_picture">Display picture (URL):</label>
+
+          <div className="ownersection">
+            <br></br>
+            <div id="imagecon">
+              {credentials.userprofile.display_picture == "" && (<div></div>)}
+              {credentials.userprofile.display_picture != "" && (<img id="profilepicture" src={credentials.userprofile.display_picture} alt="anon pic" />
+              )}
+
+            </div>
+            <br></br>
+          </div>
+          <input
+            type="url"
+            id="display_picture"
+            value={credentials.userprofile.display_picture}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="thra">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={credentials.username}
+            onChange={handleChangePrivate}
+          />
+        </div>
+
+        <div className="thra">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="text"
+            id="email"
+            value={credentials.email}
+            onChange={handleChangePrivate}
+          />
+        </div>
+
+        <div className="thra">
+          <label htmlFor="preferred_name">Preferred Name:</label>
+          <input
+            type="text"
+            id="preferred_name"
+            value={credentials.preferred_name}
+            onChange={handleChangePrivate}
+          />
+        </div>
+
+        <button className="button" type="submit" onClick={handleSubmit}>
+          Submit
       </button>
-    </form>
+      </form>
+      {
+        error && (
+          <div>
+            {
+              Object.keys(error).map((key, index) => (
+                <p key={index}> Error for: {key} -  {error[key]}</p>
+              ))
+            }
+          </div>
+        )
+      }
+    </div>
   );
 }
 
