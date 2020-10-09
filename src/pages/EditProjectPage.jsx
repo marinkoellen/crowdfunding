@@ -29,7 +29,7 @@ function EditProjectPage() {
   }, [id]);
 
   return (
-    <div>
+    <div id="projectlistcenter">
       {!isLoading && (
         <div id="pledgeform">
 
@@ -38,7 +38,11 @@ function EditProjectPage() {
           }
 
           {!isAuthor &&
-            <h2>You are not the author of this project. </h2>
+            <div id="errormessage">
+              <br></br>
+              <img className="backgroundimage" src="https://www.pngitem.com/pimgs/m/119-1190787_warning-alert-attention-search-error-icon-hd-png.png" />
+              <h2 id="headerTitle">You are not the author of this project or are not logged in to complete this action if it is your project. </h2>
+            </div>
           }
 
         </div>

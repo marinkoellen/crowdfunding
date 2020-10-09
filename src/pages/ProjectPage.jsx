@@ -120,7 +120,7 @@ function ProjectPage() {
         <div id="errormessage">
           <br></br>
           <img className="backgroundimage" src="https://www.pngitem.com/pimgs/m/119-1190787_warning-alert-attention-search-error-icon-hd-png.png" />
-          <h2>There is no project with ID {id} </h2>
+          <h2 id="headerTitle">There is no project with ID {id} </h2>
         </div>
       </div>)}
 
