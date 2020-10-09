@@ -89,10 +89,12 @@ function ProjectForm() {
   };
 
   return (
-    <div>
+    <div id="pledgeform">
+      <h2 id="headerTitle"> Create a new project and be on your way to achieving your food dreams! </h2>
+
       <form>
-        <div>
-          <label htmlFor="title">title:</label>
+        <div className="thra">
+          <label htmlFor="title">Title:</label>
           <input
             type="text"
             id="title"
@@ -102,7 +104,7 @@ function ProjectForm() {
           />
         </div>
 
-        <div>
+        <div className="thra">
           <label htmlFor="description">Description:</label>
           <textarea
             type="textarea"
@@ -112,26 +114,26 @@ function ProjectForm() {
           />
         </div>
 
-        <div>
+        <div className="thra">
           <label htmlFor="goal">Goal:</label>
           <input
             type="number"
             id="goal"
-            placeholder="What is the goal of your crowd funding project?"
+            placeholder="What is the minimum amount required to fund your project?"
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="thra">
           <label htmlFor="dream_goal">Dream Goal:</label>
           <input
             type="number"
             id="dream_goal"
-            placeholder="What is the dream_goal of your crowd funding project?"
+            placeholder="What is your dream amount of money to make this a success?"
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="campaign_end_date">campaign end date:</label>
+        <div className="thra">
+          <label htmlFor="campaign_end_date">Campaign End Date:</label>
           <input
             type="date"
             id="campaign_end_date"
@@ -139,8 +141,8 @@ function ProjectForm() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="image">image:</label>
+        <div className="thra">
+          <label htmlFor="image">Project Image:</label>
           <input
             type="url"
             id="image"
@@ -148,8 +150,8 @@ function ProjectForm() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="city">city:</label>
+        <div className="thra">
+          <label htmlFor="city">City:</label>
           <input
             type="text"
             id="city"
@@ -157,8 +159,8 @@ function ProjectForm() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="location">location:</label>
+        <div className="thra">
+          <label htmlFor="location">Location:</label>
           <input
             type="text"
             id="location"
@@ -167,8 +169,10 @@ function ProjectForm() {
           />
         </div>
 
-        <div>
-          <label htmlFor="is_open">Is this project open on submission:</label>
+        <div className="thra">
+          <label htmlFor="is_open">Is this Project Open on submission of this form?:</label>
+        </div>
+        <div className="radiowrapper">
           <input
             type="radio"
             id="is_open"
@@ -187,8 +191,9 @@ function ProjectForm() {
           <label htmlFor="false">Closed</label>
         </div>
 
-        <div>
-          <label htmlFor="proj_cat">Category:</label>
+        <div className="thra">
+          <label htmlFor="proj_cat">What Category does your Nibble project fall under?:</label>
+          <br></br>
           <select type="select" id="proj_cat" onChange={handleChange}>
             {categorylist.map((cat) => (
               <option key={cat.name} value={cat.name}>
@@ -196,11 +201,16 @@ function ProjectForm() {
               </option>
             ))}
           </select>
-        </div>
 
-        <button className="button" type="submit" onClick={handleSubmit}>
-          Submit
+        </div>
+        <div className="buttonwrapper">
+          <button className="pledgebutton" type="submit" onClick={handleSubmit}>
+            Submit your Nibble project!
       </button>
+          <br></br>
+          <br></br>
+
+        </div>
       </form>
       {
         error && (

@@ -116,6 +116,12 @@ function ProjectPage() {
 
           <div className="App">
             <h2>{projectData.title}</h2>
+            {!projectData.is_open && (
+              <div id="errordiv">
+                <h4>This project is CLOSED and not accepting new pledges</h4>
+              </div>
+            )}
+
             <p>{projectData.description}</p>
 
             <div className="pledgeseperatedfromotherinfo" >
@@ -156,8 +162,7 @@ function ProjectPage() {
                 )} className="progress-bar" />
                 <p id="amount" className="cat">${projectData.total_pledges} raised of ${projectData.goal} goal</p>
                 <h4>Recent Pledges:</h4>
-
-                <ul>
+                {pledgeData.length > 0 && (<ul>
                   {pledgeData.map((pledgeData, key) => {
                     console.log({ pledgeData });
                     return (
@@ -174,7 +179,10 @@ function ProjectPage() {
                       </li>
                     );
                   })}
-                </ul>
+                </ul>)}
+
+                {pledgeData.length == 0 && (<p>No pledges yet</p>)}
+
                 <div className="ownersection">
                   <h4>Project created by:</h4>
                   <UserPic username={projectData.owner} />

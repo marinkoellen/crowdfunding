@@ -189,10 +189,12 @@ function ProfileEditForm(props) {
             onChange={handleChangePrivate}
           />
         </div>
-
-        <button className="button" type="submit" onClick={handleSubmit}>
-          Submit
-      </button>
+        <div className="buttonwrapper">
+          <button className="pledgebutton" type="submit" onClick={handleSubmit}>
+            Submit
+            </button>
+          <br></br>
+        </div>
       </form>
       {
         error && (

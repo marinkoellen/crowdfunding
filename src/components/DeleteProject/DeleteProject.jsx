@@ -31,9 +31,7 @@ function DeleteProject(props) {
   };
 
   return (
-    <div>
-      <button type="submit" onClick={handleSubmit}>Delete your project</button>
-    </div>
+    <button className="exitbutton" type="submit" onClick={handleSubmit}>Delete your project</button>
   );
 }
 

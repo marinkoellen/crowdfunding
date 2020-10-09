@@ -20,9 +20,7 @@ function DeleteProfile() {
   };
 
   return (
-    <div>
-      <button onClick={handleSubmit}>Delete Account</button>
-    </div>
+    <button onClick={handleSubmit}>Delete Account</button>
   );
 }
 

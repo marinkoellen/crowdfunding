@@ -14,13 +14,13 @@ function DateTag(props) {
 
   const { diffInDays } = props;
 
-  if (diffInDays < 5) {
+  if (diffInDays < 10) {
     display_toggle = "inline";
   } else {
     display_toggle = "none";
   }
 
-  if (diffInDays < 0) {
+  if (diffInDays < 1) {
     closed = true;
   } else {
     closed = false;

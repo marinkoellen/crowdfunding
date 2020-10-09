@@ -39,7 +39,7 @@ function HomePage() {
       <div>
         {!isLoading && (
           <div>
-            <h3 id="headerTitle">Nibble is a crowdfunding site that is created specifically with food in mind. Browse all our {projectList.length} current Nibble projects</h3>
+            <h3 id="headerTitle">Nibble is a crowdfunding site that is created specifically with food in mind. Browse all our {projectList.length} Nibble projects</h3>
 
             <div id="search-bar__wrapper">
               <input id="search-bar"

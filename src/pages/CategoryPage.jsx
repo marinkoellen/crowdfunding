@@ -41,7 +41,7 @@ function CategoryPage() {
       <div>
         {!isLoading && (
           <div>
-            <h3 id="headerTitle">Nibble is a crowdfunding site that is created specifically with food in mind. <br></br> Browse our {projectList.length} current Nibble projects related to {project_id}s!</h3>
+            <h3 id="headerTitle">Nibble is a crowdfunding site that is created specifically with food in mind. <br></br> Browse our {projectList.length} Nibble projects related to {project_id}s!</h3>
 
             <div id="search-bar__wrapper">
               <input id="search-bar"

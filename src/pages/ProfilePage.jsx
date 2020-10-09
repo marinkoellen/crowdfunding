@@ -6,6 +6,7 @@ import DeleteProfile from "../components/DeleteProfile/DeleteProfile";
 import Loader from "../components/Loader/Loader";
 import ProjectCard from "../components/ProjectCard/ProjectCard";
 
+import UserPic from "../components/UserPic/UserPic";
 
 // import { oneProject } from "../data";
 function formatDate(string) {
@@ -19,8 +20,13 @@ function ProfilePage() {
   const [ProfileData, setProfileData] = useState({});
   const [PublicProfileData, setPublicProfileData] = useState({});
   const [ProfileActivityData, setProfileActivity] = useState({ owner_projects: [], supporter_pledges: [] });
+  const [modalState, setModalState] = useState(false);
 
   const [isLoading, setisLoading] = useState(true);
+
+  const toggleModalState = () => {
+    setModalState(!modalState);
+  };
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}users/${username}/`, {
@@ -53,101 +59,205 @@ function ProfilePage() {
       });
   }, [username]);
 
+
   return (
-    <div>
-      {!isLoading && (
+    <div id="projectlistcenter">
+
+
+      {
+        !isLoading && ProfileData.userprofile == null && (
+          <div id="errormessage">
+            <br></br>
+            <img className="backgroundimage" src="https://www.pngitem.com/pimgs/m/119-1190787_warning-alert-attention-search-error-icon-hd-png.png" />
+            <h2>There is no user profile set up for an admin user  </h2>
+          </div>
+        )
+      }
+
+      {!isLoading && ProfileData.userprofile != null && (
         <div>
-          <h1> Hello {ProfileData.preferred_name}!</h1>
-          <h2>Account Details</h2>
-          <h3>Username: {ProfileData.username}</h3>
-          <h3>Email: {ProfileData.email}</h3>
-          <h3>Preferred Name:{ProfileData.preferred_name}</h3>
-          <h2>Profile Details</h2>
 
-          {PublicProfileData.last_updated != null && (
-            <h3>Last Updated: {formatDate(PublicProfileData.last_updated)}</h3>
-          )}
-          <h3>City: {PublicProfileData.city}</h3>
-          {PublicProfileData.date_joined != null && (
-            <h3>Date Joined: {formatDate(PublicProfileData.date_joined)}</h3>
-          )}
-          <h3>Display Picture {PublicProfileData.display_picture}</h3>
+          <div className="App">
+
+            <div className="ownerid">
+              <h2> Hello {ProfileData.preferred_name}!</h2>
+            </div>
 
 
-          {ProfileActivityData.supporter_pledges.length > 0 && <div>
-            <h3>Pledges:</h3>
-            <ul>
-              {ProfileActivityData.supporter_pledges.map((pledgeData, key) => {
-                console.log({ pledgeData });
-                return (
-                  <li key={key}>
-                    ${pledgeData.amount} for project: <Link to={`/projects/${pledgeData.project_id}`}>
-                      {pledgeData.project_id}
-                    </Link>
-                    {" "}
-                    {pledgeData.anonymous ? (
-                      "- Please note, you pledged anonymously!"
-                    ) : ""}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          }
+            <h3 className="nopadding"> Account Details</h3>
 
-          {ProfileActivityData.supporter_pledges.length == 0 && <div>
-            <h3>You have not made any pledges yet:</h3>
-            <h3>Browse our existing projects <Link to={`/projects/`}> Here! </Link></h3>
+            <div className="editprofile">
 
-          </div>
-          }
+              <Link to={`/edit-userprofile/`}>
+                <button className="editbutton"> Update Profile & Account </button>
+              </Link>
+              <button className="editbutton" onClick={() => toggleModalState()}>Delete Profile</button>
+            </div>
+            <div className="profileseperatedfromotherinfo" >
 
+              <div className="PROFILEINFO">
+                <h4 className="nopadding" >Username:</h4>
+                <p className="nopadding">{ProfileData.username.toUpperCase()}</p>
+                <h4 className="nopadding" >Email:</h4>
+                <p className="nopadding">{ProfileData.email.toUpperCase()}</p>
+                <h4 className="nopadding" >Preferred Name:</h4>
 
-          {ProfileActivityData.owner_projects.length > 0 && (
-            <div>
-              <h2>See how your {ProfileActivityData.owner_projects.length} Active Projects are progressing or view your completed Projectes:</h2>
-              <h2>Active Projects:</h2>
-              <div id="project-list">
-                {ProfileActivityData.owner_projects.map((projectData, key) => {
-                  if (projectData.is_open == true) {
-                    return <ProjectCard key={key} projectData={projectData} />
-                  }
-                })}
+                <p className="nopadding" >{ProfileData.preferred_name.toUpperCase()}</p>
+
+                <h4 className="nopadding">Location: {PublicProfileData.city}</h4>
+                <p className="nopadding">{PublicProfileData.city.toUpperCase()}, {PublicProfileData.location.toUpperCase()}</p>
               </div>
-              <h2>Closed Projects:</h2>
-              <div id="project-list">
-                {ProfileActivityData.owner_projects.map((projectData, key) => {
-                  if (projectData.is_open != true) {
-                    return <ProjectCard key={key} projectData={projectData} />
-                  }
+
+              <div className="PP-Information">
+
+                <br></br>
+
+                <div id="enlargepic" >
+                  {PublicProfileData != null && (
+
+                    <div id="enlargepic">
+                      { PublicProfileData.display_picture != null && (<img id="profilepicture" src={PublicProfileData.display_picture} alt="anon pic" />)}
+
+                      {  PublicProfileData.display_picture == null && (<img id="profilepicture" src="https://icon-library.net/images/default-profile-icon/default-profile-icon-16.jpg" alt="anon pic" />)}
+                    </div>
+                  )}
+
+                  {PublicProfileData == null && (
+                    <div id="enlargepic">
+                      <img id="profilepicture" src="https://icon-library.net/images/default-profile-icon/default-profile-icon-16.jpg" alt="anon pic" />
+                    </div>
+                  )}
+
+                </div>
+
+                <h4 className="nopadding" >Last Updated Public Profile: </h4>
+
+                {PublicProfileData.last_updated != null && (
+                  <p className="nopadding"> {formatDate(PublicProfileData.last_updated).toUpperCase()}</p>
+                )}
+
+                {PublicProfileData.last_updated == null && (
+                  <p className="nopadding"> Have not edited your public profile since sign up!</p>
+                )}
+                <h4 className="nopadding" >See your current public profile:</h4>
+                <Link to={`/userprofile/${username}`}>
+                  <p className="nopadding">{username.toUpperCase()}</p>
+                </Link>
+
+              </div>
+
+
+
+            </div>
+
+
+
+
+
+            {ProfileActivityData.owner_projects.length > 0 && (
+              <div>
+                <h4>See how your {ProfileActivityData.owner_projects.length} Active Projects are progressing or view your closed Projectes:</h4>
+                <h4>Active Projects:</h4>
+                <div id="project-list">
+                  {ProfileActivityData.owner_projects.map((projectData, key) => {
+                    if (projectData.is_open == true) {
+                      return <ProjectCard key={key} projectData={projectData} />
+                    }
+                  })}
+                </div>
+                <h4>Closed Projects:</h4>
+                <div id="project-list">
+                  {ProfileActivityData.owner_projects.map((projectData, key) => {
+                    if (projectData.is_open != true) {
+                      return <ProjectCard key={key} projectData={projectData} />
+                    }
+                  })}
+                </div>
+              </div>
+            )}
+
+            {ProfileActivityData.owner_projects.length == 0 && (
+              <div>
+                <h2>You have no Active or Completed Projects!</h2>
+              </div>
+            )}
+
+
+
+
+
+            {ProfileActivityData.supporter_pledges.length > 0 && <div>
+
+              <h3>Pledges:</h3>
+              <ul>
+                {ProfileActivityData.supporter_pledges.map((pledgeData, key) => {
+                  console.log({ pledgeData });
+                  return (
+                    <li key={key}>
+                      ${pledgeData.amount} for project: <Link to={`/projects/${pledgeData.project_id}`}>
+                        {pledgeData.project_id}
+                      </Link>
+                      {" "}
+                      {pledgeData.anonymous ? (
+                        "- Please note, you pledged anonymously!"
+                      ) : ""}
+                    </li>
+                  );
                 })}
+              </ul>
+            </div>
+            }
+
+            {ProfileActivityData.supporter_pledges.length == 0 && <div>
+              <h3>You have not made any pledges yet:</h3>
+              <h3>Browse our existing projects <Link to={`/projects/`}> Here! </Link></h3>
+
+            </div>
+            }
+
+
+
+            <div className={`modalBackground modalShowing-${modalState}`}>
+              <div className="modalInner">
+                <div className="modalImage">
+
+                </div>
+                <div className="modalText">
+
+                  <h4 className="nopadding" >Are you sure you want to delete your user account?</h4>
+                  <h4 className="nopadding" >All existing pledges and projects attributed to your profile will be immediately deleted</h4>
+                  <div className="buttonwrapper">
+                    <DeleteProfile />
+
+                    <button className="exitButton" onClick={() => toggleModalState()}> No I don't want to delete my profile! </button>
+                  </div>
+                </div>
               </div>
             </div>
-          )}
 
-          {ProfileActivityData.owner_projects.length == 0 && (
-            <div>
-              <h2>You have no Active or Completed Projects!</h2>
-            </div>
-          )}
+
+          </div>
 
 
 
-          <Link to={`/edit-userprofile/`}>
-            <div>Update Profile & Account Details</div>
-          </Link>
-
-          <DeleteProfile />
         </div>
-      )}
+      )
+      }
 
-      {isLoading && (
-        <div>
-          <Loader />
-        </div>
-      )}
-    </div>
+
+
+      <div>
+        {isLoading && (
+          <div>
+            <Loader />
+          </div>
+        )}
+      </div>
+    </div >
+
   );
+
+
 }
 
 export default ProfilePage;
