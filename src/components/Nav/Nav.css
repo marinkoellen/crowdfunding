@@ -18,10 +18,14 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
+    align-self: flex-end;
+    width: 20%;
 }
 
 .navbarcontainer{
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -29,3 +33,5 @@ a#logintop{text-decoration: none; color:#2e2c38;}
 a#logintop:visited { text-decoration: none; color:#2e2c38; }
 a#logintop:focus { text-decoration: none; color:#2e2c38; }
 a#logintop:hover, #project-list a:active { text-decoration: none; opacity: 0.7; }
+
+

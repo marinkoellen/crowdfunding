@@ -146,7 +146,7 @@ img.backgroundimage {
   min-width: 100px;
 }
 
-.App button:not(.exitButton, .editbutton) {
+.App button:not(.exitButton, .editbutton, .pledgeshow) {
   padding: 5px 10px;
   background: #373a47;
   border-radius: 30px;
@@ -233,14 +233,28 @@ img.backgroundimage {
   background-color: transparent;
   border: 0;
   text-align: center;
-
   color: black;
+}
+
+button.exitButton{
+  align-items: center;
+}
+
+.pledgeshow {
+  padding: 15px;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  text-align: center;
+  color:#373a47;
+  align-items: center;
+
 }
 
 
 
 .editbutton {
-  padding: 15px;
+  padding: 5px;
   width: 100%;
   background-color: transparent;
   border: 0;
@@ -248,6 +262,9 @@ img.backgroundimage {
   color: darkred;
   text-transform: capitalize;
 }
+
+
+
 
 @media (max-width: 500px) {
   .modalImage {
@@ -396,3 +413,66 @@ div#enlargepic{
   justify-content: center;
   align-items: center;
 }
+
+/* 
+#pledgescroll{
+  position: absolute;
+  border: 5px solid gray;
+  padding: 5px;
+  background: white;
+  width: 300px;
+  height:440px;
+  overflow: auto;
+} */
+
+div.pledgescroll {
+  width: 600px;
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+
+div.testingscrollproject {
+  height: 500px;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+
+#overallcontainer-public{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+
+
+}
+
+.publicpic{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  max-width: 400px;
+}
+
+
+#centerprofiletext{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#datemove{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+

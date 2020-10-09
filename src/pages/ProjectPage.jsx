@@ -27,10 +27,24 @@ function ProjectPage() {
   const [error, setError] = useState();
   const [errorMessage, setErrorMessage] = useState(false);
 
+  const [DeleteState, setDeleteState] = useState(false);
+
+
+
 
   const toggleModalState = () => {
     setModalState(!modalState);
+    window.scrollTo(0, 0);
+
   };
+
+
+  const toggleDelete = () => {
+    setDeleteState(!DeleteState);
+    window.scrollTo(0, 0);
+  };
+
+
 
   const isAuthenticated = () => {
     let token = window.localStorage.getItem("token");
@@ -204,10 +218,11 @@ function ProjectPage() {
                   <Link to={`/projects/edit/${id}`}>
                     <button className="editbutton">Edit Project</button>
                   </Link>
-                  <button className="editbutton" type="submit" onClick={handleDelete}>Delete Project</button>
+                  <button className="editbutton" onClick={() => toggleDelete()}>Delete Project</button>
                 </div>
               )}
-
+              <br></br>
+              <br></br>
 
             </div>
 
@@ -222,6 +237,23 @@ function ProjectPage() {
                   <div>
                     <button className="exitButton" onClick={() => toggleModalState()}> exit </button>
                   </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className={`modalBackground modalShowing-${DeleteState}`}>
+              <div className="modalInner">
+                <div className="modalText">
+
+
+                  <h3 className="nopadding" id="headerTitle">Are you sure you want to remove this project from Nibble:</h3>
+                  <h3 className="nopadding" id="headerTitle">This action can not be undone</h3>
+                  <div className="buttonwrapper">
+                    <button className="pledgebutton" type="submit" onClick={handleDelete}>Delete this Project from Nibble</button>
+                    <button className="exitButton" onClick={() => toggleDelete()}> No I do not want to delete my Nibble project! </button>
+                  </div>
+
                 </div>
               </div>
             </div>

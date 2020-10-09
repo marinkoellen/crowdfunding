@@ -43,44 +43,63 @@ function PublicProfilePage() {
   }, []);
 
   return (
-    <div>
+    <div id="projectlistcenter">
       {!isLoading && (
         <div>
-          <h1>Profile: {id}</h1>
+          <h2 id="headerTitle"> {id.toUpperCase()}</h2>
 
-          {PublicProfileData != null && (
-            <div>
-              {PublicProfileData.last_updated != null && (
-                <h2>
-                  Last Updated their profile:{" "}
-                  {formatDate(PublicProfileData.last_updated)}
-                </h2>
-              )}
-              <h2>City: {PublicProfileData.city}</h2>
-              {PublicProfileData.date_joined != null && (
-                <h2>
-                  Date Joined Nibble:{" "}
-                  {formatDate(PublicProfileData.date_joined)}
-                </h2>
-              )}
-              <img src={PublicProfileData.display_picture} />
-            </div>
-          )}
 
-          {PublicProfileData == null && (
-            <div>
-              <h2>{id} does not have a public profile page set up yet!</h2>
-            </div>
-          )}
+          <div id="overallcontainer-public">
+            {PublicProfileData != null && (
+              <div className="publicpic">
+                { PublicProfileData.display_picture != null && (<img id="profilepicture" src={PublicProfileData.display_picture} alt="anon pic" />)}
+                {  PublicProfileData.display_picture == null && (<img id="profilepicture" src="https://icon-library.net/images/default-profile-icon/default-profile-icon-16.jpg" alt="anon pic" />)}
+              </div>
+            )}
+            {PublicProfileData == null && (
+              <div className="publicpic">
+                <img id="profilepicture" src="https://icon-library.net/images/default-profile-icon/default-profile-icon-16.jpg" alt="anon pic" />
+              </div>
+            )}
+            {PublicProfileData != null && (
+              <div id="centerprofiletext">
 
-          <h2>Number of pledges: {ProfileActivityData.count_pledged}</h2>
+                <h4 className="nopadding">Location:</h4>
+                <p className="nopadding">{PublicProfileData.city}, {PublicProfileData.location}</p>
 
-          <h2>Active Projects:</h2>
+                {PublicProfileData.date_joined != null && (
+                  <div>
+                    <h4 className="nopadding" >Date Joined Nibble:</h4>
+                    <p id="datemove" className="nopadding">{formatDate(PublicProfileData.date_joined).toUpperCase()}</p>
+                  </div>
+                )}
+                {PublicProfileData.last_updated != null && (
+                  <div>
+                    <h4 className="nopadding" >Last Updated their profile:</h4>
+                    <p id="datemove" className="nopadding">{formatDate(PublicProfileData.last_updated).toUpperCase()}</p>
+                  </div>
+                )}
+
+                <h4 className="nopadding" >Number of pledges made: {(ProfileActivityData.count_pledged)}</h4>
+
+              </div>
+            )}
+            {PublicProfileData == null && (
+              <div>
+                <h3 id="headerTitle">{id} does not have a public profile page set up yet!</h3>
+              </div>
+            )}
+          </div>
+
+
+
+
 
           {projectList.length > 0 && (
             <div>
-              <h2>
-                {id} has {projectList.length} Active or Completed Projects:
+
+              <h2 id="headerTitle">
+                {id.toUpperCase()} has {projectList.length} Active or Closed Projects
               </h2>
               <div id="project-list">
                 {projectList.map((projectData, key) => {
@@ -92,7 +111,7 @@ function PublicProfilePage() {
 
           {projectList.length == 0 && (
             <div>
-              <h2>{id} has No Active or Completed Project.</h2>
+              <h2 id="headerTitle"> {id.toUpperCase()} has No Active or Completed Projects</h2>
             </div>
           )}
         </div>
@@ -108,3 +127,5 @@ function PublicProfilePage() {
 }
 
 export default PublicProfilePage;
+
+

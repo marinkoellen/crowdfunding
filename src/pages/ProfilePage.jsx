@@ -21,11 +21,18 @@ function ProfilePage() {
   const [PublicProfileData, setPublicProfileData] = useState({});
   const [ProfileActivityData, setProfileActivity] = useState({ owner_projects: [], supporter_pledges: [] });
   const [modalState, setModalState] = useState(false);
+  const [showPledge, setshowPledge] = useState(false);
 
   const [isLoading, setisLoading] = useState(true);
 
   const toggleModalState = () => {
+    window.scrollTo(0, 0)
     setModalState(!modalState);
+  };
+
+  const togglePledge = () => {
+    window.scrollTo(0, 0)
+    setshowPledge(!showPledge);
   };
 
   useEffect(() => {
@@ -87,11 +94,7 @@ function ProfilePage() {
             <h3 className="nopadding"> Account Details</h3>
 
             <div className="editprofile">
-
-              <Link to={`/edit-userprofile/`}>
-                <button className="editbutton"> Update Profile & Account </button>
-              </Link>
-              <button className="editbutton" onClick={() => toggleModalState()}>Delete Profile</button>
+              <button className="pledgeshow" onClick={() => togglePledge()}>See all current pledges you have made to Nibble Projects!</button>
             </div>
             <div className="profileseperatedfromotherinfo" >
 
@@ -104,8 +107,8 @@ function ProfilePage() {
 
                 <p className="nopadding" >{ProfileData.preferred_name.toUpperCase()}</p>
 
-                <h4 className="nopadding">Location: {PublicProfileData.city}</h4>
-                <p className="nopadding">{PublicProfileData.city.toUpperCase()}, {PublicProfileData.location.toUpperCase()}</p>
+                <h4 className="nopadding">Location:</h4>
+                <p className="nopadding">{PublicProfileData.city}, {PublicProfileData.location}</p>
               </div>
 
               <div className="PP-Information">
@@ -147,10 +150,16 @@ function ProfilePage() {
               </div>
 
 
-
             </div>
 
+            <div className="editprofile">
 
+              <Link to={`/edit-userprofile/`}>
+                <button className="editbutton"> Update Profile & Account </button>
+              </Link>
+              <button className="editbutton" onClick={() => toggleModalState()}>Delete Profile</button>
+
+            </div>
 
 
 
@@ -186,34 +195,6 @@ function ProfilePage() {
 
 
 
-            {ProfileActivityData.supporter_pledges.length > 0 && <div>
-
-              <h3>Pledges:</h3>
-              <ul>
-                {ProfileActivityData.supporter_pledges.map((pledgeData, key) => {
-                  console.log({ pledgeData });
-                  return (
-                    <li key={key}>
-                      ${pledgeData.amount} for project: <Link to={`/projects/${pledgeData.project_id}`}>
-                        {pledgeData.project_id}
-                      </Link>
-                      {" "}
-                      {pledgeData.anonymous ? (
-                        "- Please note, you pledged anonymously!"
-                      ) : ""}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            }
-
-            {ProfileActivityData.supporter_pledges.length == 0 && <div>
-              <h3>You have not made any pledges yet:</h3>
-              <h3>Browse our existing projects <Link to={`/projects/`}> Here! </Link></h3>
-
-            </div>
-            }
 
 
 
@@ -231,6 +212,55 @@ function ProfilePage() {
 
                     <button className="exitButton" onClick={() => toggleModalState()}> No I don't want to delete my profile! </button>
                   </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className={`modalBackground modalShowing-${showPledge}`}>
+              <div className="modalInner">
+                <div className="modalText">
+
+                  {ProfileActivityData.supporter_pledges.length > 0 && <div>
+
+                    <h3 id="headerTitle">You have made {ProfileActivityData.supporter_pledges.length} pledges to Nibble Projects!</h3>
+                    <div className="pledgescroll">
+                      <ul>
+                        {ProfileActivityData.supporter_pledges.map((pledgeData, key) => {
+                          console.log({ pledgeData });
+                          return (
+                            <div >
+                              <li key={key}>
+                                ${pledgeData.amount} for project: <Link to={`/projects/${pledgeData.project_id}`}>
+                                  {pledgeData.project_id}
+                                </Link>
+                                {" "}
+                                {pledgeData.anonymous ? (
+                                  "- Please note, you pledged anonymously!"
+                                ) : ""}
+                              </li>
+                              <p className="comment">{pledgeData.comment}</p>
+                            </div>
+                          );
+                        })}
+                      </ul>
+                    </div>
+
+                    <div className="buttonwrapper">
+                      <button className="exitButton" onClick={() => togglePledge()}> Exit </button>
+                    </div>
+                  </div>
+                  }
+
+                  {ProfileActivityData.supporter_pledges.length == 0 && <div>
+                    <h3 id="headerTitle">You have not made any pledges yet:</h3>
+                    <h3 id="headerTitle">Browse our existing Nibble projects <Link to={`/projects/`}> Here! </Link></h3>
+                    <div className="buttonwrapper">
+                      <button className="exitButton" onClick={() => togglePledge()}> Exit </button>
+                    </div>
+
+                  </div>
+                  }
                 </div>
               </div>
             </div>

@@ -53,10 +53,6 @@ function SideBar(props) {
         Account: {username}
       </a>)}
 
-      {!loggedin && (<a className="menu-item" href="/login">
-        Login
-      </a>)}
-
 
       {!loggedin && (<a className="menu-item" href="/profile/">
         Sign up to Nibble!
@@ -77,9 +73,7 @@ function SideBar(props) {
         </a>
       ))}
 
-      {loggedin && (<a onClick={handleSubmit} className="menu-item" href="/">
-        Logout
-      </a>)}
+
 
 
 
